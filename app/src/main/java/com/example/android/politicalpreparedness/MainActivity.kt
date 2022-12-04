@@ -8,6 +8,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setTitle("POLITICAL PREPAREDNESS")
+        setTitle(getString(R.string.app_name))
     }
 }
