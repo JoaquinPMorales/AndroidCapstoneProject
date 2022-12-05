@@ -19,7 +19,7 @@ class ElectionListAdapter(private val clickListener: ElectionListener): ListAdap
 
     //TODO: Bind ViewHolder
     override fun onBindViewHolder(holder: ElectionViewHolder, position: Int) {
-        val item = getItem(position)
+        val item = getItem(position) as Election
         holder.bind(clickListener, item)
     }
 }

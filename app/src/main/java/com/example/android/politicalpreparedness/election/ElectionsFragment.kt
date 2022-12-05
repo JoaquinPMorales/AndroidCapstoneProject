@@ -62,7 +62,7 @@ class ElectionsFragment: Fragment() {
         viewModel.navigateToSavedElection.observe(viewLifecycleOwner, Observer { election ->
             election?.let {
                 this.findNavController().navigate(ElectionsFragmentDirections
-                    .actionElectionsFragmentToVoterInfoFragment(election))
+                    .actionElectionsFragmentToVoterInfoFragment(it.id, it.division))
                 viewModel.onSavedElectionNavigated()
             }
         })
@@ -70,7 +70,7 @@ class ElectionsFragment: Fragment() {
         viewModel.navigateToUpcomingElection.observe(viewLifecycleOwner, Observer { election ->
             election?.let {
                 this.findNavController().navigate(ElectionsFragmentDirections
-                    .actionElectionsFragmentToVoterInfoFragment(election))
+                    .actionElectionsFragmentToVoterInfoFragment(it.id, it.division))
                 viewModel.onUpcomingElectionNavigated()
             }
         })
