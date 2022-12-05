@@ -33,6 +33,7 @@ class ElectionViewHolder private constructor(val binding: ElectionItemBinding) :
              item: Election) {
         electionName.text = item.name
         electionDate.text = item.electionDay.toString()
+        binding.election = item
         binding.clickListener = clickListener
         binding.executePendingBindings()
     }
