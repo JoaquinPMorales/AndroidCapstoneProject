@@ -17,11 +17,6 @@ import retrofit2.Response
 class ElectionsViewModel(application: Application,
                         val database: ElectionDao): AndroidViewModel(application) {
 
-    private val _response = MutableLiveData<String>()
-
-    val response: LiveData<String>
-        get() = _response
-
     //TODO: Create live data val for upcoming elections
     private val _upcomingElections = MutableLiveData<List<Election>>()
 

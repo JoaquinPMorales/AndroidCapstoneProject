@@ -9,5 +9,7 @@
     <string name="save_election_btn_unfollow_text">UNFOLLOW ELECTION</string>
 
     <!-- TODO: Add necessary string values -->
-
+    <string name="ballot_information_text">Ballot Information</string>
+    <string name="voting_locations_text">Voting Locations</string>
+    <string name="state_header_text">Election Information</string>
 </resources>
