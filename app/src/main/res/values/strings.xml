@@ -5,6 +5,8 @@
     <string name="representatives_button_text">FIND MY REPRESENTATIVES</string>
     <string name="upcoming_elections_header_text">Upcoming Elections</string>
     <string name="saved_elections_header_text">Saved Elections</string>
+    <string name="save_election_btn_follow_text">FOLLOW ELECTION</string>
+    <string name="save_election_btn_unfollow_text">UNFOLLOW ELECTION</string>
 
     <!-- TODO: Add necessary string values -->
 

@@ -42,7 +42,6 @@ class ElectionViewHolder private constructor(val binding: ElectionItemBinding) :
     companion object {
         fun from(parent: ViewGroup): ElectionViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-//            val view = layoutInflater.inflate(R.layout.election_item, parent, false)
             val binding = ElectionItemBinding.inflate(layoutInflater, parent, false)
             return ElectionViewHolder(binding)
         }

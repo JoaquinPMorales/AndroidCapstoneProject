@@ -69,6 +69,8 @@ class ElectionsFragment: Fragment() {
 
         viewModel.navigateToUpcomingElection.observe(viewLifecycleOwner, Observer { election ->
             election?.let {
+                Log.i("ElectionsFragment", "electionId send to  VoterInfo: ${election.id}")
+                Log.i("ElectionsFragment", "election division send to  VoterInfo: ${election.division}")
                 this.findNavController().navigate(ElectionsFragmentDirections
                     .actionElectionsFragmentToVoterInfoFragment(it.id, it.division))
                 viewModel.onUpcomingElectionNavigated()

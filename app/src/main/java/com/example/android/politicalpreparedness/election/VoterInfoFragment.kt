@@ -2,6 +2,7 @@ package com.example.android.politicalpreparedness.election
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBindingImpl
 import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
@@ -20,6 +21,8 @@ class VoterInfoFragment : Fragment() {
         /**
         Hint: You will need to ensure proper data is provided from previous fragment.
         */
+        val args = VoterInfoFragmentArgs.fromBundle(requireArguments())
+        Toast.makeText(context, "ElectionId: ${args.argElectionId}, Division: ${args.argDivision}", Toast.LENGTH_LONG).show()
 
 
         //TODO: Handle loading of URLs
