@@ -8,6 +8,9 @@ import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.CivicsHttpClient
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class VoterInfoViewModel(application: Application,
@@ -30,16 +33,8 @@ class VoterInfoViewModel(application: Application,
             Log.i("VoterInfoViewModel", "voterInfo election: ${_voterInfo.value!!.election}")
             Log.i("VoterInfoViewModel", "voterInfo state: ${_voterInfo.value!!.state}")
             Log.i("VoterInfoViewModel", "voterInfo list: ${_voterInfo.value!!.electionElectionOfficials}")
-//            _response.value = "Success"
         } catch (e: Exception) {
             Log.i("VoterInfoViewModel", "Failure: ${e.message}")
-//            _response.value = "Failure: ${e.message}"
-        }
-    }
-
-    init {
-        viewModelScope.launch {
-            getVoterInfo()
         }
     }
 
@@ -94,4 +89,34 @@ class VoterInfoViewModel(application: Application,
      * Hint: The saved state can be accomplished in multiple ways. It is directly related to how elections are saved/removed from the database.
      */
 
+    var isElectionFollowed: LiveData<Boolean> = dataSource.existElectionById(electionId)
+
+    fun onFollowButtonClicked() {
+        CoroutineScope(Dispatchers.IO).launch {
+            Log.i("VoterInfoViewModel", "election saved?: ${isElectionFollowed.value}")
+            Log.i("VoterInfoViewModel", "electionId?: $electionId")
+            if(isElectionFollowed.value == true) {
+                if (electionId != null && (_voterInfo.value!!.election.id == electionId)) {
+                    Log.i("VoterInfoViewModel", "unfollow&delete election")
+                    dataSource.deleteElectionById(electionId)
+                }
+                else {
+                    Log.e("VoterInfoViewModel", "electionId not valid: $electionId")
+                }
+            }
+            else
+            {
+
+                _voterInfo.value?.election?.let {
+                    Log.i("VoterInfoViewModel", "follow&save election")
+                    dataSource.saveElection(it) }
+            }
+        }
+    }
+
+    init {
+        viewModelScope.launch {
+            getVoterInfo()
+        }
+    }
 }

@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
 import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBindingImpl
@@ -25,7 +26,6 @@ class VoterInfoFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         val args = VoterInfoFragmentArgs.fromBundle(requireArguments())
-//        Toast.makeText(context, "ElectionId: ${args.argElectionId}, Division: ${args.argDivision}", Toast.LENGTH_LONG).show()
 
         //TODO: Add ViewModel values and create ViewModel
         val application = requireNotNull(this.activity).application
@@ -46,10 +46,9 @@ class VoterInfoFragment : Fragment() {
 
         //TODO: Handle loading of URLs
         viewModel.votingLocationsClicked.observe(viewLifecycleOwner, Observer {
-            //Intent to open url
             Log.i("VoterInfoFragment", "Voting locations clicked")
             Log.i("VoterInfoFragment", "Voting locations URL: ${viewModel.votingLocationsUrl.value}")
-            if(viewModel.votingLocationsUrl.value != "")
+            if((viewModel.votingLocationsUrl.value != "") && (it != false))
             {
                 viewModel.votingLocationsUrl.value?.let { it1 -> startIntentToOpenUrl(it1) }
                 viewModel.onVotingLocationsOpened()
@@ -57,10 +56,9 @@ class VoterInfoFragment : Fragment() {
         })
 
         viewModel.ballotInfoClicked.observe(viewLifecycleOwner, Observer {
-            //Intent to open url
             Log.i("VoterInfoFragment", "Ballot information clicked")
             Log.i("VoterInfoFragment", "Ballot information URL: ${viewModel.ballotInfoUrl.value}")
-            if(viewModel.ballotInfoUrl.value != "")
+            if((viewModel.ballotInfoUrl.value != "") && (it != false))
             {
                 viewModel.ballotInfoUrl.value?.let { it1 -> startIntentToOpenUrl(it1) }
                 viewModel.onBallotInfoOpened()
@@ -69,17 +67,24 @@ class VoterInfoFragment : Fragment() {
 
         //TODO: Handle save button UI state
         //TODO: cont'd Handle save button clicks
+        viewModel.isElectionFollowed.observe(viewLifecycleOwner, Observer { isElectionSaved ->
+            Log.i("VoterInfoFragment", "Button follow state: $isElectionSaved")
+            if(isElectionSaved && isElectionSaved != null) {
+                binding.saveElectionButton.text = getText(R.string.save_election_btn_unfollow_text)
+            } else {
+                binding.saveElectionButton.text = getText(R.string.save_election_btn_follow_text)
+            }
+        })
 
         return binding.root
 
     }
 
+    //TODO: Create method to load URL intents
+    //Get it from stackOverFlow: https://stackoverflow.com/questions/3004515/sending-an-intent-to-browser-to-open-specific-url
     private fun startIntentToOpenUrl(url: String)
     {
         val implicitIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(implicitIntent)
     }
-
-    //TODO: Create method to load URL intents
-
 }

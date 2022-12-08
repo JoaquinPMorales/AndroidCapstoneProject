@@ -89,6 +89,8 @@
             app:layout_constraintTop_toBottomOf="@id/state_correspondence_header"
             app:layout_constraintStart_toStartOf="@id/election_date" />
 
+        <!-- TODO: Add button to save election to Room -->
+
         <Button
             android:id="@+id/save_election_button"
             android:layout_width="0dp"
@@ -97,14 +99,13 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
-            android:text="@string/save_election_btn_follow_text"
+            android:text=""
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/address"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <!-- TODO: Add button to save election to Room -->
+            app:layout_constraintVertical_bias="1.0"
+            android:onClick="@{() -> voterInfoViewModel.onFollowButtonClicked()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

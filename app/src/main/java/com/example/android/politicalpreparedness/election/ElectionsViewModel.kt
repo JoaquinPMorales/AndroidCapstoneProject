@@ -24,10 +24,7 @@ class ElectionsViewModel(application: Application,
         get() = _upcomingElections
 
     //TODO: Create live data val for saved elections
-    private val _savedElections = MutableLiveData<List<Election>>()
-
-    val savedElections: LiveData<List<Election>>
-        get() = _savedElections
+    var savedElections: LiveData<List<Election>> = database.getElections()
 
     //TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
     private suspend fun getUpcomingElections(){
@@ -38,8 +35,6 @@ class ElectionsViewModel(application: Application,
 
     init {
         viewModelScope.launch {
-            val savedElectionsFromDb = database.getElections()
-            _savedElections.value = savedElectionsFromDb
             getUpcomingElections()
         }
     }
