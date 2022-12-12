@@ -5,6 +5,7 @@
     <dimen name="elections_header_text_size">30sp</dimen>
     <dimen name="election_date_subtitle_size">12sp</dimen>
     <dimen name="election_name_title_size">16sp</dimen>
+    <dimen name="election_info_subtitles">20sp</dimen>
 
     <!-- TODO: Add necessary dimension values -->s
 

@@ -12,4 +12,5 @@
     <string name="ballot_information_text">Ballot Information</string>
     <string name="voting_locations_text">Voting Locations</string>
     <string name="state_header_text">Election Information</string>
+    <string name="correspondence_address_text">Correspondence Address</string>
 </resources>

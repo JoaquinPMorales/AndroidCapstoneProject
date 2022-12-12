@@ -20,11 +20,13 @@
             android:id="@+id/election_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
             android:padding="@dimen/default_padding"
             android:singleLine="true"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Wisconsin Presidential Primary Election"
-            app:title="@{voterInfoViewModel.voterInfo.election.name}"/>
+            app:title="@{voterInfoViewModel.voterInfo.election.name}"
+            app:titleTextColor="@color/white"
+            tools:text="Wisconsin Presidential Primary Election" />
 
         <!-- TODO: Add visual styling -->
         <TextView
@@ -41,9 +43,11 @@
             android:id="@+id/state_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/election_date"
+            android:text="@string/state_header_text"
+            android:textSize="@dimen/election_info_subtitles"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/election_date"
-            android:text="@string/state_header_text" />
+            app:layout_constraintTop_toBottomOf="@id/election_date" />
 
         <!-- TODO: Add click binding to open web URL -->
         <!-- TODO: Add visual styling and content -->
@@ -78,6 +82,9 @@
             android:id="@+id/state_correspondence_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/election_info_subtitles"
+            android:textStyle="bold"
+            android:text="@string/correspondence_address_text"
             app:layout_constraintTop_toBottomOf="@id/state_ballot"
             app:layout_constraintStart_toStartOf="@id/election_date" />
 
@@ -86,6 +93,7 @@
             android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{voterInfoViewModel.voterInfo.state.get(0).electionAdministrationBody.correspondenceAddress.toFormattedString()}"
             app:layout_constraintTop_toBottomOf="@id/state_correspondence_header"
             app:layout_constraintStart_toStartOf="@id/election_date" />
 

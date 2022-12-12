@@ -30,7 +30,14 @@ class VoterInfoFragment : Fragment() {
         //TODO: Add ViewModel values and create ViewModel
         val application = requireNotNull(this.activity).application
         val dataSource = ElectionDatabase.getInstance(application).electionDao
-        val viewModelFactory = VoterInfoViewModelFactory(application, args.argElectionId, args.argDivision.state + ", " + args.argDivision.country, dataSource)
+        var address = ""
+        if (args.argDivision.state == ""){
+            address = "dc, " + args.argDivision.country
+        }
+        else {
+            address = args.argDivision.state + ", " + args.argDivision.country
+        }
+        val viewModelFactory = VoterInfoViewModelFactory(application, args.argElectionId, address, dataSource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(VoterInfoViewModel::class.java)
 
         //TODO: Add binding values
