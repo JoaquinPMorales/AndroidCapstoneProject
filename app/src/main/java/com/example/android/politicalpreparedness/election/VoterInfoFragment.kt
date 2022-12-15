@@ -57,7 +57,7 @@ class VoterInfoFragment : Fragment() {
             Log.i("VoterInfoFragment", "Voting locations URL: ${viewModel.votingLocationsUrl.value}")
             if((viewModel.votingLocationsUrl.value != "") && (it != false))
             {
-                viewModel.votingLocationsUrl.value?.let { it1 -> startIntentToOpenUrl(it1) }
+                viewModel.votingLocationsUrl.value?.let { it1 -> startIntentToOpenWebPage(it1) }
                 viewModel.onVotingLocationsOpened()
             }
         })
@@ -67,7 +67,7 @@ class VoterInfoFragment : Fragment() {
             Log.i("VoterInfoFragment", "Ballot information URL: ${viewModel.ballotInfoUrl.value}")
             if((viewModel.ballotInfoUrl.value != "") && (it != false))
             {
-                viewModel.ballotInfoUrl.value?.let { it1 -> startIntentToOpenUrl(it1) }
+                viewModel.ballotInfoUrl.value?.let { it1 -> startIntentToOpenWebPage(it1) }
                 viewModel.onBallotInfoOpened()
             }
         })
@@ -89,7 +89,8 @@ class VoterInfoFragment : Fragment() {
 
     //TODO: Create method to load URL intents
     //Get it from stackOverFlow: https://stackoverflow.com/questions/3004515/sending-an-intent-to-browser-to-open-specific-url
-    private fun startIntentToOpenUrl(url: String)
+    //or from Android dev reference: https://developer.android.com/guide/components/intents-common#ViewUrl
+    private fun startIntentToOpenWebPage(url: String)
     {
         val implicitIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(implicitIntent)

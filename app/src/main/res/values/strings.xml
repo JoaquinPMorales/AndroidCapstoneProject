@@ -13,4 +13,11 @@
     <string name="voting_locations_text">Voting Locations</string>
     <string name="state_header_text">Election Information</string>
     <string name="correspondence_address_text">Correspondence Address</string>
+    <string name="representative_search_title_text">Representative Search</string>
+    <string name="representative_location_button_text">USE MY LOCATION</string>
+    <string name="address_line1_hint_text">Address Line 1</string>
+    <string name="address_line2_hint_text">Address Line 2</string>
+    <string name="address_city_hint_text">City</string>
+    <string name="address_zip_hint_text">Zip</string>
+    <string name="my_representatives_title_text">My Representatives</string>
 </resources>
