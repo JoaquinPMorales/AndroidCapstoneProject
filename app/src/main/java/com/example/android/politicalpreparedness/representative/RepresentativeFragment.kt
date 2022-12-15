@@ -17,6 +17,7 @@ import com.example.android.politicalpreparedness.databinding.FragmentRepresentat
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListener
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -28,13 +29,14 @@ class DetailFragment : Fragment() {
 
     //TODO: Declare ViewModel
     private lateinit var viewModel: RepresentativeViewModel
+    private lateinit var binding : FragmentRepresentativeBinding
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         //TODO: Establish bindings
-        val binding = FragmentRepresentativeBinding.inflate(inflater)
+        binding = FragmentRepresentativeBinding.inflate(inflater)
         viewModel = RepresentativeViewModel()
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
@@ -53,8 +55,12 @@ class DetailFragment : Fragment() {
         binding.buttonSearch.setOnClickListener {
             Log.i("RepresentativeFragment", "address: ${viewModel.address.value?.toFormattedString()}")
             hideKeyboard()
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewModel.getRepresentatives();
+            if (viewModel.address.value?.let { it1 -> checkAddress(it1) } == true)
+            {
+                Log.i("RepresentativeFragment", "valid address")
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewModel.getRepresentatives();
+                }
             }
         }
 
@@ -112,6 +118,27 @@ class DetailFragment : Fragment() {
     private fun hideKeyboard() {
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+    }
+
+    private fun checkAddress(address: Address) : Boolean {
+        var isValid = false;
+        if(address.line1.isNullOrEmpty()) {
+            showSnackbar(getString(R.string.address_line1_empty_error))
+        } else if (address.state.isNullOrEmpty()) {
+            showSnackbar(getString(R.string.address_state_empty_error))
+        } else if (address.city.isNullOrEmpty()) {
+            showSnackbar(getString(R.string.address_city_empty_error))
+        } else if (address.zip.isNullOrEmpty()) {
+            showSnackbar(getString(R.string.address_zip_empty_error))
+        }
+        else {
+            isValid = true
+        }
+        return isValid
+    }
+
+    private fun showSnackbar(text: String) {
+        Snackbar.make(binding.root, text, Snackbar.LENGTH_LONG).show()
     }
 
 }

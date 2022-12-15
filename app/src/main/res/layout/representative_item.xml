@@ -25,7 +25,7 @@
             profileImage="@{representative.official.photoUrl}"
             android:layout_width="@dimen/representative_photo_width"
             android:layout_height="@dimen/representative_photo_height"
-            android:layout_margin="16dp"
+            android:layout_margin="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/representative_item_public_position"
             app:layout_constraintHorizontal_bias="0.51"
@@ -43,11 +43,13 @@
             android:maxLines="1"
             android:text="@{representative.office.name}"
             android:textColor="?colorPrimaryDark"
+            android:textSize="@dimen/representative_item_public_position_text"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/representative_picture"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_goneMarginEnd="16dp"
-            tools:text='@tools:sample/lorem[19]' />
+            tools:text='President of the United States' />
 
         <TextView
             android:id="@+id/representative_item_name"
@@ -56,26 +58,26 @@
             android:layout_marginEnd="@dimen/default_margin"
             android:maxLines="1"
             android:text="@{representative.official.name}"
+            android:textSize="@dimen/representative_item_name_text"
             app:layout_constraintEnd_toStartOf="@+id/representative_icon_facebook"
             app:layout_constraintStart_toStartOf="@+id/representative_item_public_position"
             app:layout_constraintTop_toBottomOf="@+id/representative_item_public_position"
             app:layout_goneMarginEnd="16dp"
-            tools:text='@tools:sample/lorem[19]' />
+            tools:text='Donald J. Trump' />
 
         <TextView
             android:id="@+id/representative_item_political_party"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/default_margin"
-            android:layout_marginBottom="@dimen/default_margin"
             android:maxLines="1"
             android:text="@{representative.official.party}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="@dimen/representative_item_political_party_text"
             app:layout_constraintEnd_toStartOf="@+id/representative_icon_facebook"
             app:layout_constraintStart_toStartOf="@+id/representative_item_public_position"
             app:layout_constraintTop_toBottomOf="@+id/representative_item_name"
             app:layout_goneMarginEnd="16dp"
-            tools:text='@tools:sample/lorem[19]' />
+            tools:text='Republican Party' />
 
         <ImageView
             android:id="@+id/representative_icon_facebook"

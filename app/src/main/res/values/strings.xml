@@ -24,4 +24,9 @@
     <string name="representative_fb_content_description">%s facebook page</string>
     <string name="representative_twitter_content_description">%s twitter account</string>
     <string name="representative_www_content_description">%s web page</string>
+    <string name="address_line1_empty_error">Enter first line address</string>
+    <string name="address_state_empty_error">Select a state</string>
+    <string name="address_city_empty_error">Enter a City</string>
+    <string name="address_zip_empty_error">Enter a valid zip</string>
+
 </resources>
