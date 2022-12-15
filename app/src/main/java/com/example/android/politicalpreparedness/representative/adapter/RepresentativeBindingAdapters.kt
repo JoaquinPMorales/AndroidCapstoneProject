@@ -1,5 +1,6 @@
 package com.example.android.politicalpreparedness.representative.adapter
 
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
@@ -16,6 +17,7 @@ fun fetchImage(view: ImageView, src: String?) {
 
 @BindingAdapter("stateValue")
 fun Spinner.setNewValue(value: String?) {
+    Log.i("RepresentativeBindingAdapters", "setNewValue spinner: $value")
     val adapter = toTypedAdapter<String>(this.adapter as ArrayAdapter<*>)
     val position = when (adapter.getItem(0)) {
         is String -> adapter.getPosition(value)
