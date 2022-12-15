@@ -8,10 +8,13 @@ import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBindingImpl
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Address
+import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
+import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListener
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -35,8 +38,14 @@ class DetailFragment : Fragment() {
         binding.viewModel = viewModel
 
         //TODO: Define and assign Representative adapter
+        val representativeListAdapter = RepresentativeListAdapter(RepresentativeListener {  })
+        binding.representativeRecyclerView.adapter = representativeListAdapter
 
         //TODO: Populate Representative adapter
+        viewModel.representatives.observe(viewLifecycleOwner, Observer {
+            Log.i("RepresentativeFragment", "submit representative's list")
+            representativeListAdapter.submitList(it)
+        })
 
         //TODO: Establish button listeners for field and location search
         binding.buttonSearch.setOnClickListener {

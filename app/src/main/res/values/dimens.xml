@@ -8,5 +8,13 @@
     <dimen name="election_info_subtitles">20sp</dimen>
 
     <!-- TODO: Add necessary dimension values -->s
+    <dimen name="default_margin">8dp</dimen>
+    <dimen name="representative_photo_width">72dp</dimen>
+    <dimen name="representative_photo_height">70dp</dimen>
+    <dimen name="representative_icon_width">48dp</dimen>
+    <dimen name="representative_icon_height">48dp</dimen>
+    <dimen name="representative_item_public_position_text">20sp</dimen>
+    <dimen name="representative_item_name_text">16sp</dimen>
+    <dimen name="representative_item_political_party_text">14sp</dimen>
 
 </resources>

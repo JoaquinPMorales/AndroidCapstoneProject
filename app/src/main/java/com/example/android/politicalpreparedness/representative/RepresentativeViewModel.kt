@@ -40,8 +40,8 @@ class RepresentativeViewModel: ViewModel(){
         try {
             val (offices, officials) = CivicsApi.retrofitService.getRepresentatives(
                 _address.value!!.toFormattedString())
-            _representatives.value = offices.flatMap { office -> office.getRepresentatives(officials) }
-            Log.i("RepresentativeViewModel", "representatives list: ${officials.toString()}")
+                _representatives.value = offices.flatMap { office -> office.getRepresentatives(officials) }
+                Log.i("RepresentativeViewModel", "representatives list: ${officials.toString()}")
         } catch (e: IOException) {
             Log.e("RepresentativeViewModel", "IOException, error: ${e.stackTrace}")
         } catch (e: HttpException) {

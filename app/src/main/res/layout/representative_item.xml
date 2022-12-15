@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="representative"
+            type="com.example.android.politicalpreparedness.representative.model.Representative" />
+
+        <variable
+            name="clickListener"
+            type="com.example.android.politicalpreparedness.representative.adapter.RepresentativeListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@{@string/representative_content_description(representative.official.name, representative.office.name)}"
+        android:onClick="@{()->clickListener.onClick(representative)}">
+
+        <ImageView
+            android:id="@+id/representative_picture"
+            profileImage="@{representative.official.photoUrl}"
+            android:layout_width="@dimen/representative_photo_width"
+            android:layout_height="@dimen/representative_photo_height"
+            android:layout_margin="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/representative_item_public_position"
+            app:layout_constraintHorizontal_bias="0.51"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ballot_logo" />
+
+        <TextView
+            android:id="@+id/representative_item_public_position"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:maxLines="1"
+            android:text="@{representative.office.name}"
+            android:textColor="?colorPrimaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/representative_picture"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginEnd="16dp"
+            tools:text='@tools:sample/lorem[19]' />
+
+        <TextView
+            android:id="@+id/representative_item_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:maxLines="1"
+            android:text="@{representative.official.name}"
+            app:layout_constraintEnd_toStartOf="@+id/representative_icon_facebook"
+            app:layout_constraintStart_toStartOf="@+id/representative_item_public_position"
+            app:layout_constraintTop_toBottomOf="@+id/representative_item_public_position"
+            app:layout_goneMarginEnd="16dp"
+            tools:text='@tools:sample/lorem[19]' />
+
+        <TextView
+            android:id="@+id/representative_item_political_party"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:maxLines="1"
+            android:text="@{representative.official.party}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/representative_icon_facebook"
+            app:layout_constraintStart_toStartOf="@+id/representative_item_public_position"
+            app:layout_constraintTop_toBottomOf="@+id/representative_item_name"
+            app:layout_goneMarginEnd="16dp"
+            tools:text='@tools:sample/lorem[19]' />
+
+        <ImageView
+            android:id="@+id/representative_icon_facebook"
+            android:layout_width="@dimen/representative_icon_width"
+            android:layout_height="@dimen/representative_icon_height"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:contentDescription="@{@string/representative_fb_content_description(representative.official.name)}"
+            android:foreground="?selectableItemBackground"
+            android:padding="@dimen/default_padding"
+            android:src="@drawable/ic_facebook"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/representative_icon_twitter"
+            app:layout_constraintTop_toBottomOf="@+id/representative_item_public_position"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/representative_icon_twitter"
+            android:layout_width="@dimen/representative_icon_width"
+            android:layout_height="@dimen/representative_icon_height"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:contentDescription="@{@string/representative_twitter_content_description(representative.official.name)}"
+            android:foreground="?selectableItemBackgroundBorderless"
+            android:padding="@dimen/default_padding"
+            android:src="@drawable/ic_twitter"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/representative_icon_website"
+            app:layout_constraintTop_toBottomOf="@+id/representative_item_public_position"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/representative_icon_website"
+            android:layout_width="@dimen/representative_icon_width"
+            android:layout_height="@dimen/representative_icon_height"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="@dimen/default_margin"
+            android:contentDescription="@{@string/representative_www_content_description(representative.official.name)}"
+            android:foreground="?selectableItemBackgroundBorderless"
+            android:padding="@dimen/default_padding"
+            android:src="@drawable/ic_www"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/representative_item_public_position"
+            tools:visibility="visible" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

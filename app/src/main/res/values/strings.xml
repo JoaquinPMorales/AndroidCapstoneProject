@@ -20,4 +20,8 @@
     <string name="address_city_hint_text">City</string>
     <string name="address_zip_hint_text">Zip</string>
     <string name="my_representatives_title_text">My Representatives</string>
+    <string name="representative_content_description">%s from %s</string>
+    <string name="representative_fb_content_description">%s facebook page</string>
+    <string name="representative_twitter_content_description">%s twitter account</string>
+    <string name="representative_www_content_description">%s web page</string>
 </resources>
