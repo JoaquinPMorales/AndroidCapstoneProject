@@ -1,35 +1,41 @@
 package com.example.android.politicalpreparedness.representative
 
+import android.Manifest
 import android.content.Context
+import android.content.IntentSender
+import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.example.android.politicalpreparedness.R
-import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBindingImpl
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListener
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
-import java.util.Locale
+import java.util.*
+
 
 class DetailFragment : Fragment() {
-
-    companion object {
-        //TODO: Add Constant for Location request
-    }
 
     //TODO: Declare ViewModel
     private lateinit var viewModel: RepresentativeViewModel
     private lateinit var binding : FragmentRepresentativeBinding
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
@@ -65,6 +71,8 @@ class DetailFragment : Fragment() {
         }
 
         binding.buttonLocation.setOnClickListener {
+            hideKeyboard()
+            getLocation()
 
         }
 
@@ -79,31 +87,42 @@ class DetailFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         return binding.root
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        //TODO: Handle location permission result to get location on permission granted
-    }
-
-    private fun checkLocationPermissions(): Boolean {
-        return if (isPermissionGranted()) {
-            true
-        } else {
-            //TODO: Request Location permissions
-            false
-        }
-    }
-
-    private fun isPermissionGranted() : Boolean {
-        //TODO: Check if permission is already granted and return (true = granted, false = denied/other)
-        return false
     }
 
     private fun getLocation() {
         //TODO: Get location from LocationServices
         //TODO: The geoCodeLocation method is a helper function to change the lat/long location to a human readable street address
+        Log.i("RepresentativeFragment", "getLocation")
+        // Check if the device has the necessary hardware and permissions to provide location data
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+
+            // If not, ask the user for permission to access location data
+            ActivityCompat.requestPermissions(requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
+                1)
+            Log.i("RepresentativeFragment", "getLocation is NOT possible, asking about permission")
+        } else {
+            Log.i("RepresentativeFragment", "getLocation is possible")
+            // If the device has the necessary hardware and permissions, request the current location
+            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                Log.i("RepresentativeFragment", "successListener: $location")
+                    if (location != null) {
+                        Log.i("RepresentativeFragment", "latitude: ${location.latitude}")
+                        Log.i("RepresentativeFragment", "longitude: ${location.longitude}")
+                        var addressLocation = Address("", "", "", "", "")
+                        addressLocation = geoCodeLocation(location)
+                        Log.i("RepresentativeFragment", "address location: ${addressLocation.toFormattedString()}")
+                        if(checkAddress(addressLocation)) {
+                            viewModel.address.postValue(addressLocation)
+                        }
+                    }
+                }
+        }
     }
 
     private fun geoCodeLocation(location: Location): Address {
