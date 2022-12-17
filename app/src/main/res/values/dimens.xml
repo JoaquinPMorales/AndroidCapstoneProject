@@ -16,5 +16,13 @@
     <dimen name="representative_item_public_position_text">20sp</dimen>
     <dimen name="representative_item_name_text">16sp</dimen>
     <dimen name="representative_item_political_party_text">14sp</dimen>
+    <dimen name="margin_big">16dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="date_subtitle_height">20dp</dimen>
+    <dimen name="election_header_margin_bottom">638dp</dimen>
+    <dimen name="upcoming_election_list_margin_bottom">412dp</dimen>
+    <dimen name="saved_elections_header_margin_bottom">332dp</dimen>
+    <dimen name="saved_election_list_margin_bottom">86dp</dimen>
+    <dimen name="saved_election_list_width">395dp</dimen>
 
 </resources>

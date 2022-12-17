@@ -25,7 +25,7 @@
             profileImage="@{representative.official.photoUrl}"
             android:layout_width="@dimen/representative_photo_width"
             android:layout_height="@dimen/representative_photo_height"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/margin_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/representative_item_public_position"
             app:layout_constraintHorizontal_bias="0.51"
@@ -48,7 +48,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/representative_picture"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_goneMarginEnd="16dp"
+            app:layout_goneMarginEnd="@dimen/margin_big"
             tools:text='President of the United States' />
 
         <TextView
@@ -62,7 +62,7 @@
             app:layout_constraintEnd_toStartOf="@+id/representative_icon_facebook"
             app:layout_constraintStart_toStartOf="@+id/representative_item_public_position"
             app:layout_constraintTop_toBottomOf="@+id/representative_item_public_position"
-            app:layout_goneMarginEnd="16dp"
+            app:layout_goneMarginEnd="@dimen/margin_big"
             tools:text='Donald J. Trump' />
 
         <TextView
@@ -76,7 +76,7 @@
             app:layout_constraintEnd_toStartOf="@+id/representative_icon_facebook"
             app:layout_constraintStart_toStartOf="@+id/representative_item_public_position"
             app:layout_constraintTop_toBottomOf="@+id/representative_item_name"
-            app:layout_goneMarginEnd="16dp"
+            app:layout_goneMarginEnd="@dimen/margin_big"
             tools:text='Republican Party' />
 
         <ImageView
@@ -113,7 +113,7 @@
             android:id="@+id/representative_icon_website"
             android:layout_width="@dimen/representative_icon_width"
             android:layout_height="@dimen/representative_icon_height"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="@dimen/margin_big"
             android:layout_marginBottom="@dimen/default_margin"
             android:contentDescription="@{@string/representative_www_content_description(representative.official.name)}"
             android:foreground="?selectableItemBackgroundBorderless"
