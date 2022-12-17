@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Address
@@ -46,6 +47,8 @@ class DetailFragment : Fragment() {
         viewModel = RepresentativeViewModel()
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+        //To avoid have problems with motionLayout until representatives list is populated
+        binding.representativeMotionLayout.setTransition(R.id.start, R.id.start)
 
         //TODO: Define and assign Representative adapter
         val representativeListAdapter = RepresentativeListAdapter(RepresentativeListener {  })
@@ -53,8 +56,24 @@ class DetailFragment : Fragment() {
 
         //TODO: Populate Representative adapter
         viewModel.representatives.observe(viewLifecycleOwner, Observer {
-            Log.i("RepresentativeFragment", "submit representative's list")
             representativeListAdapter.submitList(it)
+            Log.i("RepresentativeFragment", "submit representative's list: $it")
+            Log.i("RepresentativeFragment", "submit representative's list size: ${it.size}")
+            //To avoid have problems with motionLayout until representatives list is populated
+            if (it.isNullOrEmpty()) {
+                binding.representativeMotionLayout.setTransition(R.id.start, R.id.start)
+            } else {
+                binding.representativeMotionLayout.setTransition(R.id.start, R.id.end)
+                //Logic to get saved motionLayout&RecyclerView status and restore it
+                val motionLayoutStatus = savedInstanceState?.getInt("motionLayoutState")
+                if (motionLayoutStatus != null) {
+                    binding.representativeMotionLayout.transitionToState(motionLayoutStatus)
+                }
+                val recyclerPosition = savedInstanceState?.getInt("representativeRecyclerViewFirstVisiblePos")
+                if (recyclerPosition != null) {
+                    binding.representativeRecyclerView.layoutManager?.scrollToPosition(recyclerPosition)
+                }
+            }
         })
 
         //TODO: Establish button listeners for field and location search
@@ -88,6 +107,12 @@ class DetailFragment : Fragment() {
             }
         }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        savedInstanceState?.getParcelable<Address>("address")?.let{
+            viewModel.address.value = it
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.getRepresentatives();
+            }
+        }
         return binding.root
     }
 
@@ -158,6 +183,18 @@ class DetailFragment : Fragment() {
 
     private fun showSnackbar(text: String) {
         Snackbar.make(binding.root, text, Snackbar.LENGTH_LONG).show()
+    }
+
+    //Needed to save MotionLayout&Recycler status and also for Address data
+    override fun onSaveInstanceState(state: Bundle) {
+        Log.i("RepresentativeFragment", "saving status")
+        super.onSaveInstanceState(state)
+        val firstVisiblePos: Int =
+            (binding.representativeRecyclerView.layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+        state.putInt("representativeRecyclerViewFirstVisiblePos", firstVisiblePos)
+        state.putInt("motionLayoutState",binding.representativeMotionLayout.currentState)
+        state.putParcelable("address", binding.viewModel?.address?.value)
+
     }
 
 }
